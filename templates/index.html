@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+    <div class="card text-center">
+        <div class="card-header">
+            The Great Number Game 
+        </div>
+            <div class="card-body">
+                <h5 class="card-title">Hi, please take an educated guess...</h5>
+                <p class="card-text">Think of a number between 1 and 100</p>
+
+                <form  action="/guess" class="text-center p-5 rounded" method="post">
+                    <div class="form_group">
+                        <label for="guess">Guess</label>
+                        <input type="text" name="guess" id="guess" class="form-control">
+                    </div>
+                    <input type="submit" value="guess" class="mt-4 btn btn-outline-info">
+                </form>
+                {% if 'guess' in session %}
+                    {% if session['guess'] == session['num'] %}
+                        <div class="card bg-sucess">
+                            <div class="h2 text-center">Congrats you got the number!</div>
+                            <a href="/reset" class="btn btn-outline-info">Play Again</a>
+                        </div>
+                    {% elif session ['guess'] < session ['num'] %}
+                        <div class="card bg-danger">
+                            <div class="h2 text-center">Too Low</div>
+                            <a href="/reset"class="btn btn-outline-info">Play Again</a>
+                        </div>
+                    {% else %}
+                    <div class="card bg-danger">
+                        <div class="h2">Too High!</div>
+                    {% endif %}
+                {% endif %}
+                    </div>
+            </div>
+    </div>
+</div>
+{% endblock content %}
